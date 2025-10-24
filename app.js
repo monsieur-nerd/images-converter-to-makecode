@@ -107,12 +107,12 @@ function setupEventListeners() {
     });
     
     elements.dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        elements.dropZone.classList.remove('drag-over');
-        if (e.dataTransfer.files) {
-            handleImageFile(e.dataTransfer.files);
-        }
-    });
+    e.preventDefault();
+    elements.dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleImageFile(e.dataTransfer.files[0]);  // ✅ File extrait
+    }
+});
     
     elements.paletteSelect.addEventListener('change', () => {
         updatePalettePreview();
@@ -167,8 +167,10 @@ function setupEventListeners() {
 // ============================================================
 
 function handleImageSelect(e) {
-    const file = e.target.files;
-    if (file) handleImageFile(file);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+        handleImageFile(files[0]);              // ✅ File extrait
+    }
 }
 
 function handleImageFile(file) {
