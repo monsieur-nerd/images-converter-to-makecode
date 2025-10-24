@@ -1708,3 +1708,7 @@ small {
         gap: var(--space-12);
     }
 }
+
+#logo-nerd {
+  width: 150px;
+}
