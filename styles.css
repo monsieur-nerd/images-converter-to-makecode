@@ -1723,9 +1723,18 @@ img#logo-nerd {
   margin-bottom: 60px;
 }
 
+body {
+  padding-bottom: 60px; /* Hauteur de votre footer */
+  box-sizing: border-box;
+  position: relative; /* Recommandé pour certaines méthodes */
+  min-height: 100vh; /* Assure que le body prend au moins toute la hauteur de l'écran */
+  margin: 0;
+}
+
 .footer {
-   position: fixed;
+   position: absolute;
    left: 0;
    bottom: 0;
    width: 100%;
 }
+
