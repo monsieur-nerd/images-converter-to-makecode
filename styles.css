@@ -744,12 +744,11 @@ select.form-control {
    ================================================================ */
 
 .lang-buttons {
-    position: fixed;
+    position: absolute;
     top: var(--space-20);
     right: var(--space-20);
     display: flex;
     justify-content: center;
-    gap: var(--space-10);
     z-index: 100;
 }
 
@@ -1568,10 +1567,6 @@ small {
    ================================================================ */
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: rgba(0, 0, 0, 0.8);
     color: var(--color-surface);
     text-align: center;
@@ -1726,6 +1721,10 @@ img#logo-nerd {
 
 .action-buttons {
   margin-bottom: 125px;
+}
+
+.footer {
+  padding-bottom: 0px;
 }
 
 .upload-section {
