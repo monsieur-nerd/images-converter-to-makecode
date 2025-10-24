@@ -79,8 +79,6 @@ const translations = {
 
     // Footer
     footerText: 'Fait avec ❤️ par',
-    footerVersion: 'Version 1.0 | Hébergé sur GitHub Pages |',
-    footerInspired: 'Inspiré par le travail de Kristian Pedersen',
 
     // Notifications
     notificationSuccess: '✅ Conversion réussie!',
@@ -172,8 +170,6 @@ const translations = {
 
     // Footer
     footerText: 'Made with ❤️ by',
-    footerVersion: 'Version 1.0 | Hosted on GitHub Pages |',
-    footerInspired: 'Inspired by the work of Kristian Pedersen',
 
     // Notifications
     notificationSuccess: '✅ Conversion successful!',
@@ -373,11 +369,8 @@ function updateUILanguage() {
 
   // Footer
   const footerText = document.getElementById('footerText');
-  const footerVersion = document.getElementById('footerVersion');
-  const footerInspired = document.getElementById('footerInspired');
   if (footerText) footerText.textContent = t('footerText');
-  if (footerVersion) footerVersion.textContent = t('footerVersion');
-  if (footerInspired) footerInspired.textContent = t('footerInspired');
+
 
   // Spinner
   const spinnerText = document.getElementById('spinnerText');
