@@ -6,7 +6,7 @@ const translations = {
   fr: {
     // Header
     title: '🎮 Arcade Sprite Converter Pro 🎮',
-    subtitle: 'L\'app ultime pour convertir tes images en sprites',
+    subtitle: 'L\'app ultime pour convertir vos images en sprites',
 
     // Upload Section
     uploadText: '📁 Glissez une image ou',
