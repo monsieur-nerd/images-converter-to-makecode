@@ -6,7 +6,7 @@ const translations = {
   fr: {
     // Header
     title: '🎮 Arcade Sprite Converter Pro',
-    subtitle: 'Convertir vos images PNG en sprites MakeCode Arcade haute qualité',
+    subtitle: "L'app ultime pour convertir tes images en sprites",
 
     // Upload Section
     uploadText: '📁 Glissez une image ou',
@@ -99,7 +99,7 @@ const translations = {
   en: {
     // Header
     title: '🎮 Arcade Sprite Converter Pro',
-    subtitle: 'Convert your PNG images to high-quality MakeCode Arcade sprites',
+    subtitle: 'The ultimate app for converting images into sprites',
 
     // Upload Section
     uploadText: '📁 Drag an image or',
