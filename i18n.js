@@ -5,7 +5,7 @@
 const translations = {
   fr: {
     // Header
-    title: '🎮 Arcade Sprite Converter Pro',
+    title: '🎮 Arcade Sprite Converter Pro 🎮',
     subtitle: 'L\'app ultime pour convertir tes images en sprites',
 
     // Upload Section
@@ -96,7 +96,7 @@ const translations = {
 
   en: {
     // Header
-    title: '🎮 Arcade Sprite Converter Pro',
+    title: '🎮 Arcade Sprite Converter Pro 🎮',
     subtitle: 'The ultimate app for converting images into sprites',
 
     // Upload Section
