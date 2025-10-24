@@ -1,6 +1,6 @@
 # 🎮 Arcade Sprite Converter Pro
 
-Convert your PNG images to high-quality MakeCode Arcade sprites with professional dithering algorithms.
+Convert your images (PNG, JPG, GIF, WebP) to high-quality MakeCode Arcade sprites with professional dithering algorithms.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg)]()
