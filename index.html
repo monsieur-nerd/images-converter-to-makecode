@@ -1,154 +1,225 @@
 <!DOCTYPE html>
-<html lang="fr">
-
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convertir des images PNG en sprites MakeCode Arcade">
-    <meta name="theme-color" content="#667eea">
-    
     <title>🎮 Arcade Sprite Converter Pro</title>
-    
-
-    
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🎮</text></svg>">
 </head>
-
 <body>
-    <div class="container"> <!-- Header avec sélecteur de langue -->
-        <header class="header" style="position: relative;">
-            <div class="language-selector"> <button class="lang-btn" id="langFR" onclick="changeLanguage('fr')"
-                    title="Français"> 🇫🇷
-                </button> <button class="lang-btn" id="langEN" onclick="changeLanguage('en')" title="English"> 🇬🇧
-                </button> </div>
-            <h1>🎮 Arcade Sprite Converter Pro</h1>
-            <p>Convertissez vos images en sprites de haute qualité pour MakeCode Arcade</p>
-        </header> <!-- Upload Section -->
-        <section class="upload-section">
-            <div class="drop-zone" id="dropZone"> <input type="file" id="imageInput" accept="image/*" hidden>
-                <div class="drop-content"> <span class="drop-icon">📁</span>
-                    <p>Glissez une image ou <a href="#" class="drop-link">parcourez</a></p> <small>PNG, JPG, GIF, WebP -
-                        Max 10MB</small>
+    <!-- LANGUAGE BUTTONS WITH ICONS -->
+    <div class="lang-buttons">
+        <button id="langEN" class="lang-btn active" onclick="changeLanguage('en')" title="English">
+            <img src="icons/uk-64.png" alt="English" class="lang-icon">
+        </button>
+        <button id="langFR" class="lang-btn" onclick="changeLanguage('fr')" title="Français">
+            <img src="icons/France-64.png" alt="Français" class="lang-icon">
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1 id="pageTitle">🎮 Arcade Sprite Converter Pro</h1>
+            <p id="pageSubtitle">Convert your PNG images to high-quality MakeCode Arcade sprites</p>
+        </div>
+
+        <!-- UPLOAD SECTION -->
+        <div class="upload-section">
+            <div class="drop-zone" id="dropZone">
+                <input type="file" id="imageInput" accept="image/*">
+                <div class="drop-content">
+                    <div class="drop-icon">📁</div>
+                    <p>
+                        <span id="uploadText">📁 Drag an image or</span>
+                        <a href="#" class="drop-link" id="uploadLink">browse</a>
+                    </p>
+                    <small id="uploadInfo">PNG, JPG, GIF, WebP - Max 10MB</small>
                 </div>
             </div>
-        </section> <!-- Main Content -->
-        <div class="main-content" id="mainContent" style="display: none;"> <!-- Preview Comparison -->
-            <section class="preview-comparison">
-                <div class="preview-item">
-                    <h3>📷 Original</h3> <canvas id="beforeCanvas"></canvas>
-                    <p class="preview-info" id="beforeInfo"></p>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content" id="mainContent" style="display: none;">
+            <div>
+                <!-- PREVIEW SECTION -->
+                <div class="preview-comparison">
+                    <div class="preview-item">
+                        <h3 id="originalLabel">📷 Original</h3>
+                        <canvas id="beforeCanvas" width="300" height="300"></canvas>
+                        <div class="preview-info" id="beforeInfo"></div>
+                    </div>
+                    <div class="preview-separator">→</div>
+                    <div class="preview-item">
+                        <h3 id="previewLabel">✨ Preview</h3>
+                        <canvas id="afterCanvas" width="300" height="300"></canvas>
+                        <div class="preview-info" id="afterInfo"></div>
+                    </div>
                 </div>
-                <div class="preview-separator">→</div>
-                <div class="preview-item">
-                    <h3>✨ Aperçu</h3> <canvas id="afterCanvas"></canvas>
-                    <p class="preview-info" id="afterInfo"></p>
+
+                <!-- OUTPUT SECTION -->
+                <div class="output-section" id="outputSection" style="display: none;">
+                    <div class="output-header">
+                        <h3 id="outputTitle">📋 MakeCode Arcade Code</h3>
+                        <div class="output-stats" id="outputStats"></div>
+                    </div>
+                    <textarea id="outputCode" readonly></textarea>
+                    <div class="output-buttons">
+                        <button class="btn btn-success" id="copyButton">📋 <span id="copyLabel">Copy Code</span></button>
+                        <button class="btn btn-info" id="downloadButton">⬇️ <span id="downloadLabel">Download PNG</span></button>
+                        <button class="btn btn-info" id="downloadJSButton">⬇️ <span id="downloadJSLabel">Download .js</span></button>
+                    </div>
+                    <div class="output-footer" id="outputHint">💡 Tip: Paste the code directly in the JavaScript tab of MakeCode Arcade</div>
                 </div>
-            </section> <!-- Options Panel -->
-            <aside class="options-panel"> <!-- Quick Presets -->
+
+                <!-- HISTORY SECTION -->
+                <div class="history-section" id="historySection" style="display: none;">
+                    <h3 id="historyTitle">📜 Conversion History</h3>
+                    <div class="history-list" id="historyList"></div>
+                    <button class="btn btn-secondary" id="clearHistoryBtn">🗑️ <span id="clearHistoryLabel">Clear History</span></button>
+                </div>
+            </div>
+
+            <!-- OPTIONS PANEL (RIGHT SIDEBAR) -->
+            <div class="options-panel">
+                <!-- QUICK PRESETS -->
                 <div class="quick-presets">
-                    <h3>⚡ Présets rapides</h3>
-                    <div class="preset-buttons"> <button class="preset-btn" id="presetHQ">⭐ Haute qualité</button>
-                        <button class="preset-btn" id="presetBalance">⚖️ Équilibré</button> <button class="preset-btn"
-                            id="presetFast">⚡ Rapide</button> <button class="preset-btn" id="presetRetro">🕹️
-                            Rétro</button> </div>
-                </div> <!-- Palette Selection -->
-                <fieldset class="form-group">
-                    <legend>🎨 Palette de couleurs</legend> <select id="paletteSelect">
-                        <option value="makecode">MakeCode Arcade (16 colors) - Default</option>
-                        <option value="game-boy">Game Boy (4 colors) - Classic</option>
-                        <option value="pico-8">PICO-8 (16 colors) - Indie</option>
-                        <option value="commodore-64">Commodore 64 (16 colors) - Retro</option>
-                        <option value="atari-2600">Atari 2600 (128 colors) - Vintage</option>
+                    <h3 id="quickPresetsLabel">⚡ Quick Presets</h3>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" id="presetHQ">⭐ <span id="presetHQLabel">High Quality</span></button>
+                        <button class="preset-btn" id="presetBalance">⚖️ <span id="presetBalanceLabel">Balanced</span></button>
+                        <button class="preset-btn" id="presetFast">⚡ <span id="presetFastLabel">Fast</span></button>
+                        <button class="preset-btn" id="presetRetro">🕹️ <span id="presetRetroLabel">Retro</span></button>
+                    </div>
+                </div>
+
+                <!-- PALETTE SECTION -->
+                <div class="form-group">
+                    <legend id="paletteLabel">🎨 Color Palette</legend>
+                    <select id="paletteSelect">
+                        <option value="makecode" id="paletteMakeCode">MakeCode Arcade (16 colors) - Default</option>
+                        <option value="gameboy" id="paletteGameBoy">Game Boy (4 colors) - Classic</option>
+                        <option value="pico8" id="palettePICO8">PICO-8 (16 colors) - Indie</option>
+                        <option value="commodore64" id="paletteCommodore">Commodore 64 (16 colors) - Retro</option>
+                        <option value="atari2600" id="paletteAtari">Atari 2600 (128 colors) - Vintage</option>
                     </select>
                     <div class="palette-preview" id="palettePreview"></div>
-                </fieldset> <!-- Dithering Algorithm -->
-                <fieldset class="form-group">
-                    <legend>🔲 Algorithme de dithering</legend> <select id="ditheringSelect">
-                        <option value="nearest">None (Fast) - Basic conversion</option>
-                        <option value="floyd-steinberg">Floyd-Steinberg - Best quality ⭐⭐⭐⭐⭐</option>
-                        <option value="bayer-2x2">Bayer 2x2 - 2x2 pattern</option>
-                        <option value="bayer-4x4">Bayer 4x4 - Regular pattern ⭐⭐⭐⭐</option>
-                        <option value="bayer-8x8">Bayer 8x8 - 8x8 pattern</option>
-                        <option value="atkinson">Atkinson - Fewer artifacts ⭐⭐⭐⭐</option>
-                    </select> <small>💡 Floyd-Steinberg ideal for photos, Bayer for pixel art</small>
-                </fieldset> <!-- Image Filters -->
-                <fieldset class="form-group">
-                    <legend>🎛️ Image Filters</legend> <label class="slider-label"> <span>Brightness</span>
-                        <div class="slider-controls"> <input type="range" id="brightnessSlider" min="-100" max="100"
-                                value="0" class="slider"> <span class="slider-value" id="brightnessValue">0%</span>
-                        </div>
-                    </label> <label class="slider-label"> <span>Contrast</span>
-                        <div class="slider-controls"> <input type="range" id="contrastSlider" min="-100" max="100"
-                                value="0" class="slider"> <span class="slider-value" id="contrastValue">0%</span> </div>
-                    </label> <label class="slider-label"> <span>Saturation</span>
-                        <div class="slider-controls"> <input type="range" id="saturationSlider" min="-100" max="100"
-                                value="0" class="slider"> <span class="slider-value" id="saturationValue">0%</span>
-                        </div>
-                    </label>
-                    <div class="checkbox-group"> <label class="checkbox-label"> <input type="checkbox"
-                                id="grayscaleCheck"> Grayscale
-                        </label> <label class="checkbox-label"> <input type="checkbox" id="invertCheck"> Invert Colors
-                        </label> </div>
-                </fieldset> <!-- Resize Options -->
-                <fieldset class="form-group">
-                    <legend>📏 Resizing</legend>
-                    <div class="radio-group"> <label class="radio-label"> <input type="radio" name="resizeMode"
-                                value="fitWidth" checked> Fit to width (16px)
-                        </label> </div>
-                    <div class="radio-group"> <label class="radio-label"> <input type="radio" name="resizeMode"
-                                value="fitHeight"> Fit to height (16px)
-                        </label> </div>
-                    <div class="radio-group"> <label class="radio-label"> <input type="radio" name="resizeMode"
-                                value="custom"> Custom size
-                        </label> </div>
-                    <div id="customSizeInputs" class="custom-inputs" style="display: none;"> <label> Width: <input
-                                type="number" id="customWidth" value="32" min="1" max="160">px
-                        </label> <label> Height: <input type="number" id="customHeight" value="32" min="1" max="160">px
-                        </label> </div>
-                    <div class="radio-group"> <label class="radio-label"> <input type="radio" name="resizeMode"
-                                value="original"> Original size (limited to 160×120)
-                        </label> </div>
-                </fieldset> <!-- Action Buttons -->
-                <div class="action-buttons"> <button id="convertBtn" class="btn btn-primary">🔄 Convert</button> <button
-                        id="resetBtn" class="btn btn-secondary">↻ Reset</button> </div>
-            </aside> <!-- Output Section -->
-            <section class="output-section" id="outputSection" style="display: none;">
-                <div class="output-header">
-                    <h3>📋 MakeCode Arcade Code</h3>
-                    <div class="output-stats" id="outputStats"></div>
-                </div> <textarea id="outputCode" readonly placeholder="Code will appear here..."></textarea>
-                <div class="output-buttons"> <button id="copyButton" class="btn btn-success">📋 Copy Code</button>
-                    <button id="downloadButton" class="btn btn-info">⬇️ Download PNG</button> <button
-                        id="downloadJSButton" class="btn btn-info">⬇️ Download .js</button> </div>
-                <div class="output-footer">
-                    <p>💡 Tip: Paste the code directly in the JavaScript tab of MakeCode Arcade</p>
+                    <small id="paletteHint"></small>
                 </div>
-            </section>
-        </div> <!-- History Section -->
-        <section class="history-section" id="historySection" style="display: none;">
-            <h3>📜 Conversion History</h3>
-            <div id="historyList" class="history-list"></div> <button id="clearHistoryBtn" class="btn btn-secondary">🗑️
-                Clear History</button>
-        </section>
-    </div> <!-- Loading Spinner -->
+
+                <!-- DITHERING SECTION -->
+                <div class="form-group">
+                    <legend id="ditheringLabel">🔲 Dithering Algorithm</legend>
+                    <select id="ditheringSelect">
+                        <option value="nearest" id="ditheringNearest">None (Fast) - Basic conversion</option>
+                        <option value="floyd-steinberg" id="ditheringFloyd">Floyd-Steinberg - Best quality ⭐⭐⭐⭐⭐</option>
+                        <option value="bayer-2x2" id="ditheringBayer2x2">Bayer 2x2 - 2x2 pattern</option>
+                        <option value="bayer-4x4" id="ditheringBayer4x4">Bayer 4x4 - Regular pattern ⭐⭐⭐⭐</option>
+                        <option value="bayer-8x8" id="ditheringBayer8x8">Bayer 8x8 - 8x8 pattern</option>
+                        <option value="atkinson" id="ditheringAtkinson">Atkinson - Fewer artifacts ⭐⭐⭐⭐</option>
+                    </select>
+                    <small id="ditheringHint">💡 Floyd-Steinberg ideal for photos, Bayer for pixel art</small>
+                </div>
+
+                <!-- FILTERS SECTION -->
+                <div class="form-group">
+                    <legend id="filtersLabel">🎛️ Image Filters</legend>
+
+                    <div class="slider-label">
+                        <span id="brightnessLabel">Brightness</span>
+                        <div class="slider-controls">
+                            <input type="range" class="slider" id="brightnessSlider" min="-100" max="100" value="0">
+                            <span class="slider-value" id="brightnessValue">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-label">
+                        <span id="contrastLabel">Contrast</span>
+                        <div class="slider-controls">
+                            <input type="range" class="slider" id="contrastSlider" min="-100" max="100" value="0">
+                            <span class="slider-value" id="contrastValue">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-label">
+                        <span id="saturationLabel">Saturation</span>
+                        <div class="slider-controls">
+                            <input type="range" class="slider" id="saturationSlider" min="-100" max="100" value="0">
+                            <span class="slider-value" id="saturationValue">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="grayscaleCheck">
+                            <span id="grayscaleLabel">Grayscale</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="invertCheck">
+                            <span id="invertLabel">Invert Colors</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- RESIZE SECTION -->
+                <div class="form-group">
+                    <legend id="resizeLabel">📏 Resizing</legend>
+
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="resizeMode" value="fitWidth" checked>
+                            <span id="resizeFitWidthLabel">Fit to width (16px)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="resizeMode" value="fitHeight">
+                            <span id="resizeFitHeightLabel">Fit to height (16px)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="resizeMode" value="custom">
+                            <span id="resizeCustomLabel">Custom size</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="resizeMode" value="original">
+                            <span id="resizeOriginalLabel">Original size (limited to 160×120)</span>
+                        </label>
+                    </div>
+
+                    <div class="custom-inputs" id="customSizeInputs" style="display: none;">
+                        <label id="widthLabel">Width: <input type="number" id="customWidth" min="1" max="160" value="16"> <span id="pxLabel">px</span></label>
+                        <label id="heightLabel">Height: <input type="number" id="customHeight" min="1" max="120" value="16"> <span id="pxLabel2">px</span></label>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="convertBtn" disabled>🔄 <span id="convertLabel">Convert</span></button>
+                    <button class="btn btn-secondary" id="resetBtn">↻ <span id="resetLabel">Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPINNER -->
     <div class="spinner" id="spinner" style="display: none;">
         <div class="spinner-content">
             <div class="spinner-ring"></div>
-            <p>Converting...</p>
+            <p id="spinnerText">Converting...</p>
         </div>
-    </div> <!-- Notification Toast -->
-    <div id="toast" class="toast" style="display: none;"></div> <!-- Footer -->
-    <footer class="footer">
-        <p>🎮 <strong>Arcade Sprite Converter</strong> - Convert your images to MakeCode Arcade sprites</p>
-        <p><small>Version 2.0 | Hosted on GitHub Pages | <a
-                    href="https://github.com/kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite"
-                    target="_blank">Inspired by Kristian Pedersen</a></small></p>
-    </footer> <!-- Scripts in correct order -->
-    <script src="converter.js"></script>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast" style="display: none;"></div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p id="footerText">🎮 Arcade Sprite Converter - Convert your images to MakeCode Arcade sprites</p>
+        <p id="footerVersion">Version 2.0 | Hosted on GitHub Pages |</p>
+        <p id="footerInspired">Inspired by Kristian Pedersen</p>
+    </div>
+
+    <!-- SCRIPTS -->
     <script src="i18n.js"></script>
+    <script src="converter.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>
