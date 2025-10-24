@@ -78,9 +78,9 @@ const translations = {
     historyTitle: '📜 Historique de conversions',
 
     // Footer
-    footerText: '🎮 Arcade Sprite Converter - Convertir vos images en sprites MakeCode Arcade',
-    footerVersion: 'Version 2.0 | Hébergé sur GitHub Pages |',
-    footerInspired: 'Inspiré par Kristian Pedersen',
+    footerText: 'Fait avec ❤️ par',
+    footerVersion: 'Version 1.0 | Hébergé sur GitHub Pages |',
+    footerInspired: 'Inspiré par le travail de Kristian Pedersen',
 
     // Notifications
     notificationSuccess: '✅ Conversion réussie!',
@@ -171,9 +171,9 @@ const translations = {
     historyTitle: '📜 Conversion History',
 
     // Footer
-    footerText: '🎮 Arcade Sprite Converter - Convert your images to MakeCode Arcade sprites',
-    footerVersion: 'Version 2.0 | Hosted on GitHub Pages |',
-    footerInspired: 'Inspired by Kristian Pedersen',
+    footerText: 'Made with ❤️ by',
+    footerVersion: 'Version 1.0 | Hosted on GitHub Pages |',
+    footerInspired: 'Inspired by the work of Kristian Pedersen',
 
     // Notifications
     notificationSuccess: '✅ Conversion successful!',
