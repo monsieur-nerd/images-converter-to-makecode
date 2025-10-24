@@ -1713,3 +1713,18 @@ img#logo-nerd {
   width: 150px;
   margin-bottom: 10px;
 }
+
+#pageTitle {
+  margin-top: 60px;
+}
+
+#pageSubtitle #pageTitle {
+  margin-bottom: 60px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+}
