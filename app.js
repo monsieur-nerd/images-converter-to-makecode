@@ -92,11 +92,18 @@ function cacheDOM() {
     elements.spinner = document.getElementById('spinner');
     elements.toast = document.getElementById('toast');
 }
+// ============================================================
+// CONFIGURATION DES ÉCOUTEURS D'ÉVÉNEMENTS
+// ============================================================
 
 function setupEventListeners() {
+    // Zone de dépôt
     elements.dropZone.addEventListener('click', () => elements.imageInput.click());
+    
+    // Sélection d'image via input
     elements.imageInput.addEventListener('change', handleImageSelect);
     
+    // Drag and drop
     elements.dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
         elements.dropZone.classList.add('drag-over');
@@ -107,20 +114,23 @@ function setupEventListeners() {
     });
     
     elements.dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    elements.dropZone.classList.remove('drag-over');
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        handleImageFile(e.dataTransfer.files[0]);  // ✅ File extrait
-    }
-});
+        e.preventDefault();
+        elements.dropZone.classList.remove('drag-over');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleImageFile(e.dataTransfer.files[0]);
+        }
+    });
     
+    // Palette
     elements.paletteSelect.addEventListener('change', () => {
         updatePalettePreview();
         previewConversion();
     });
     
+    // Dithering
     elements.ditheringSelect.addEventListener('change', previewConversion);
     
+    // Filtres
     elements.brightnessSlider.addEventListener('input', (e) => {
         document.getElementById('brightnessValue').textContent = e.target.value + '%';
         previewConversion();
@@ -139,6 +149,7 @@ function setupEventListeners() {
     elements.grayscaleCheck.addEventListener('change', previewConversion);
     elements.invertCheck.addEventListener('change', previewConversion);
     
+    // Redimensionnement
     elements.resizeModeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             elements.customSizeInputs.style.display = this.value === 'custom' ? 'block' : 'none';
@@ -149,6 +160,7 @@ function setupEventListeners() {
     elements.customWidth.addEventListener('input', previewConversion);
     elements.customHeight.addEventListener('input', previewConversion);
     
+    // Boutons d'action
     elements.convertBtn.addEventListener('click', performConversion);
     elements.resetBtn.addEventListener('click', resetForm);
     elements.copyButton.addEventListener('click', copyToClipboard);
@@ -156,24 +168,29 @@ function setupEventListeners() {
     elements.downloadJSButton.addEventListener('click', downloadJS);
     elements.clearHistoryBtn.addEventListener('click', clearHistory);
     
+    // Presets
     elements.presets.hq.addEventListener('click', () => applyPreset('highQuality'));
     elements.presets.balance.addEventListener('click', () => applyPreset('balanced'));
     elements.presets.fast.addEventListener('click', () => applyPreset('fast'));
     elements.presets.retro.addEventListener('click', () => applyPreset('retro'));
-}
+} // ✅ FIN de setupEventListeners()
+
+
+
+
 
 // ============================================================
 // GESTION DES IMAGES
 // ============================================================
-
 function handleImageSelect(e) {
     const files = e.target.files;
     if (files && files.length > 0) {
-        handleImageFile(files[0]);              // ✅ File extrait
+        handleImageFile(files[0]);
     }
 }
 
 function handleImageFile(file) {
+    // Vérification de la taille du fichier (max 10 Mo)
     if (file.size > 10 * 1024 * 1024) {
         showToast('notificationFileTooLarge');
         return;
@@ -188,13 +205,13 @@ function handleImageFile(file) {
             elements.mainContent.style.display = 'grid';
             elements.convertBtn.disabled = false;
             elements.outputSection.style.display = 'none';
-            
             setTimeout(() => previewConversion(), 100);
         };
         img.src = e.target.result;
     };
     reader.readAsDataURL(file);
 }
+
 
 function displayOriginalPreview(img) {
     elements.beforeCanvas.width = Math.min(img.width, 300);

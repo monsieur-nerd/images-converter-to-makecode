@@ -889,7 +889,7 @@ html {
 }
 
 .drop-link {
-    color: var(--color-warning);
+    color: var(--color-red-400);
     text-decoration: none;
     font-weight: var(--font-weight-semibold);
     transition: color var(--duration-fast) var(--ease-standard);
