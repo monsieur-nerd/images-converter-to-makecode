@@ -1652,6 +1652,13 @@ small {
         top: var(--space-16);
         right: var(--space-16);
     }
+    body {
+    min-height: auto;  /* Revenir à la hauteur naturelle */
+  }
+  
+  html {
+    height: auto;  /* Sinon le html peut aussi causer le problème */
+  }
 }
 
 @media (max-width: 480px) {
