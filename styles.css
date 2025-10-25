@@ -625,6 +625,13 @@ select.form-control {
   .container {
     max-width: var(--container-md);
   }
+  body {
+    min-height: auto;  /* Annule le min-height: 100vh */
+  }
+  
+  html {
+    height: auto;
+  }
 }
 @media (min-width: 1024px) {
   .container {
