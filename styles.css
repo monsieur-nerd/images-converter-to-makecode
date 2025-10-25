@@ -2484,5 +2484,6 @@ RESPONSIVE DESIGN
 
 
   img#logo-nerd {
+    flex-shrink: 0;
     width: 120px;
   }
