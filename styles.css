@@ -625,13 +625,6 @@ select.form-control {
   .container {
     max-width: var(--container-md);
   }
-  body {
-    min-height: auto;  /* Annule le min-height: 100vh */
-  }
-  
-  html {
-    height: auto;
-  }
 }
 @media (min-width: 1024px) {
   .container {
@@ -809,7 +802,7 @@ body {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
     color: var(--color-text);
     line-height: var(--line-height-normal);
-    min-height: 100vh;
+    min-height: 100dvh; /*voir cet article https://www.alsacreations.com/astuce/lire/1831-corriger-le-probleme-de-hauteur-100vh-sur-mobile.html */
     padding-bottom: 0;
 }
 
