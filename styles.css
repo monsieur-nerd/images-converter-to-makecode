@@ -2428,10 +2428,6 @@ RESPONSIVE DESIGN
     gap: var(--space-12);
   }
 
-  img#logo-nerd {
-    width: 150px;
-    margin-bottom: var(--space-10);
-  }
 
   #pageTitle {
     margin-top: 60px;
@@ -2480,4 +2476,13 @@ RESPONSIVE DESIGN
   .history-section {
     padding: var(--space-16);
   }
+
+  img#logo-nerd {
+    margin-bottom: var(--space-10);
+  }
 }
+
+
+  img#logo-nerd {
+    width: 120px;
+  }
