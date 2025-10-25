@@ -832,7 +832,7 @@ html {
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-10);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
 }
 
 .header p {
